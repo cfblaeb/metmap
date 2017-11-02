@@ -23,7 +23,23 @@ DNA methyltransferase binding motif plasmid assembler
 * Grow, Harvest, Sequence plasmids.
 * ?
 * Profit?  
- 
+
+
+## Motif file format
+* The motifs should be stored in a file like so:
+  * A standard text file
+  * One motif per line
+  * First rows are for non-ambiguous motifs
+  * then a row with the word "ambiguous"
+  * rest of the rows are for ambiguous motifs 
+  
+  Example:  
+  ATGCATGCATGC  
+  STGCAGTCATCGTTK  
+  ambiguous  
+  ATCNNNNAAA  
+  CGTAGCANNNATCGATGC  
+  
 ## Possibly gBlock synthesis issues:
 * extremely low or high GC content (less than 25% and greater than 75%)
 * homopolymeric runs of 10 or more As and Ts or 6 or more Gs and Cs

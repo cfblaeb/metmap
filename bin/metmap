@@ -3,3 +3,6 @@
 from metmap.metmap import afunc
 
 afunc()
+
+
+#here we will have some command line stuff to run the actual code
