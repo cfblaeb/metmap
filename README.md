@@ -1,3 +1,11 @@
+#CURRENT RULES: TO BE CHANGED WHEN TORBJØRN GIVES YOU MORE INFO
+>2N'er = ambiguous ellers non-ambigious
+ambigious = 12 random kopier
+non-ambigious = 10 kopier af alle varianter
+Åbenlyse spørgsmål/issues:
+Skal ATVVVAT virkelig laves i 3^3 * 10 = 270 kopier mens ATNNNAT kun skal laves i 12?
+
+
 # metmap
 DNA methyltransferase binding motif plasmid assembler
 
@@ -26,18 +34,12 @@ DNA methyltransferase binding motif plasmid assembler
 
 
 ## Motif file format
-* The motifs should be stored in a file like so:
-  * A standard text file
-  * One motif per line
-  * First rows are for non-ambiguous motifs
-  * then a row with the word "ambiguous"
-  * rest of the rows are for ambiguous motifs 
-  
+* The motifs should be stored in a standard text file with one motif per line
+* If the motif contains a group of N's it will be treated as a promiscuous
   Example:  
-  ATGCATGCATGC  
-  STGCAGTCATCGTTK  
-  ambiguous  
-  ATCNNNNAAA  
+  ATGCATGCATGC
+  STGCAGTCATCGTTK    
+  ATCNNNNAAA            <---  
   CGTAGCANNNATCGATGC  
   
 ## Possibly gBlock synthesis issues:
