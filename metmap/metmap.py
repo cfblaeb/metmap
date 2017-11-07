@@ -25,14 +25,24 @@ def deambigulate_random(seq: str) -> str:
     return [n if n in dnc['N'] else choice(dnc[n]) for n in seq.upper()]
 
 
-def deambigulate_all(seq: str) -> str:
+def deambigulate_all(seq: str, start_pos: int = 0) -> str:
     """
     create all variants of seq
     :param seq: A DNA sequence using ATCG or IUPAC degenerate code
+    :param start_pos:
     :return: A list of all variants
     """
-    # identify ambiguous positions
-    amb_pos = []
+    clean = True
+    for i, nuc in enumerate(seq[start_pos:].upper()):
+        if nuc in dnc:
+            clean = False
+            for snuc in dnc[nuc]:
+                deamb = seq[:i+start_pos] + snuc + seq[i+start_pos+1:]
+                for x in deambigulate_all(deamb, i+start_pos+1):
+                    yield x
+            break
+    if clean:
+        yield seq
 
 
 
