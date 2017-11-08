@@ -1,7 +1,12 @@
 import unittest
-from metmap.metmap import do_it_all
+from metmap.metmap import generate_parts_for_cassette
 
 
 class TestMetMap(unittest.TestCase):
-    def test_main_function(self):
-        self.assertEqual(len(do_it_all("test_data.txt")), 1)
+
+    def test_gpfc(self):
+        infile = open("test_data.txt")
+        motifs = generate_parts_for_cassette(infile)
+        self.assertEqual(len(motifs), 94)
+        infile.close()
+
