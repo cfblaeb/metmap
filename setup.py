@@ -9,6 +9,7 @@ setup(
     scripts=['bin/metmap', ],
     #url = "http://packages.python.org/an_example_pypi_project",
     packages=['metmap'],
+    install_requires=['biopython'],
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Environment :: Console",

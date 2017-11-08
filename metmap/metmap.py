@@ -1,4 +1,5 @@
 from random import choice, shuffle
+from Bio import SeqIO, SeqRecord, SeqFeature, Seq
 
 # IUPAC nucleotide code
 dnc = {
@@ -151,6 +152,14 @@ def do_it_all(motif_file, copy_rule1: int=10, copy_rule2: int=12,  how_many_Ns: 
     :param nresults: number of motif assemblies to output
     return: actual results
     """
+
+    """
+    PLAN TO WRITE ANNOTATED GB
+    1) motif generator actually generates SeqRecord objects with a single Seq and SeqFeature objects
+    2) shuffle_motifs takes into account that its not strings by SeqRecords
+    3) Final cassette assembly also remembers that its not strings.
+    """
+
 
     # generate de-ambigulated motifs in the right copy numbers
     motifs = generate_parts_for_cassette(motif_file, copy_rule1, copy_rule2)
