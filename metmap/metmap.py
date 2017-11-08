@@ -1,5 +1,8 @@
 from random import choice, shuffle
-from Bio import SeqIO, SeqRecord, SeqFeature, Seq
+from Bio.SeqRecord import SeqRecord
+from Bio.SeqFeature import SeqFeature, FeatureLocation
+from Bio.Seq import Seq
+from Bio.Alphabet.IUPAC import IUPACUnambiguousDNA
 
 # IUPAC nucleotide code
 dnc = {
@@ -81,17 +84,17 @@ def generate_parts_for_cassette(motif_file, copy_rule1: int=10, copy_rule2: int=
             print(f"{motif}: rule {rule}: {how_many} variants which will each be added in {copy_rule1} copies. {copy_rule1*how_many} total.")
             if how_many > 10:
                 print(f"Warning: This motif will be deambigulated into {how_many} variants. Each variant will receive {copy_rule1} copies. Thats {copy_rule1*how_many} targets for just 1 methyltransferase!")
-            motifs += deambigulate_all(motif)*copy_rule1
+            motifs += [(motif, x) for x in deambigulate_all(motif)]*copy_rule1
         elif rule == '2':
             print(f"{motif}: rule {rule}: {how_many} variants of which {copy_rule2} copies will be picked at random.")
             if how_many <= copy_rule2:  # make all variants, possibly more than once
                 copies = copy_rule2/how_many
-                all_variants = deambigulate_all(motif)
+                all_variants = [(motif, x) for x in deambigulate_all(motif)]
                 adding = all_variants*int(copies)
                 motifs += adding
-                motifs += pick_n_random_without_duplicates(motif, copy_rule2-len(adding))
+                motifs += [(motif, x) for x in pick_n_random_without_duplicates(motif, copy_rule2-len(adding))]
             else:
-                motifs += pick_n_random_without_duplicates(motif, copy_rule2)
+                motifs += [(motif, x) for x in pick_n_random_without_duplicates(motif, copy_rule2)]
         else:
             print(f"Rule not recognized for motif '{motif}' on line {i}: '{rule}'. Rule must be either 1 or 2.")
 
@@ -109,7 +112,7 @@ def shuffle_motifs(motif_list):
         # do naive shuffle
         shuffle(motifs)
         # check for repeat motifs
-        bad_poss = [i for i, el in enumerate(motifs[:-1]) if el == motifs[i + 1]]
+        bad_poss = [i for i, (motif, de_motif) in enumerate(motifs[:-1]) if motif == motifs[i + 1][0]]
         if not bad_poss:
             return motifs
 
@@ -119,22 +122,22 @@ def shuffle_motifs(motif_list):
         bad_elements = [motifs.pop(pos) for pos in bad_poss[::-1]]
 
         all_placed = True
-        for el in bad_elements:
+        for (motif, de_motif) in bad_elements:
             placed = False
-            for i, mel in enumerate(motifs):
+            for i, (mmotif, mde_motif) in enumerate(motifs):
                 if i == 0:  # first pos
-                    if el != mel:  # place here at first pos
-                        motifs = [el] + motifs
+                    if motif != mde_motif:  # place here at first pos
+                        motifs = [(motif, de_motif)] + motifs
                         placed = True
                         break
                 elif i == len(motifs)-1:  # last pos
-                    if el != mel:  # place at last pos
-                        motifs.append(el)
+                    if motif != mde_motif:  # place at last pos
+                        motifs.append((motif, de_motif))
                         placed = True
                         break
                 else:  # middle pos
-                    if el != mel and el != motifs[i-1]:  # place between i-1 and i
-                        motifs = motifs[:i] + [el] + motifs[i:]
+                    if motif != mde_motif and motif != motifs[i-1][0]:  # place between i-1 and i
+                        motifs = motifs[:i] + [(motif, de_motif)] + motifs[i:]
                         placed = True
                         break
             if not placed:  # no possible position, start over
@@ -153,14 +156,6 @@ def do_it_all(motif_file, copy_rule1: int=10, copy_rule2: int=12,  how_many_Ns: 
     return: actual results
     """
 
-    """
-    PLAN TO WRITE ANNOTATED GB
-    1) motif generator actually generates SeqRecord objects with a single Seq and SeqFeature objects
-    2) shuffle_motifs takes into account that its not strings by SeqRecords
-    3) Final cassette assembly also remembers that its not strings.
-    """
-
-
     # generate de-ambigulated motifs in the right copy numbers
     motifs = generate_parts_for_cassette(motif_file, copy_rule1, copy_rule2)
 
@@ -170,11 +165,22 @@ def do_it_all(motif_file, copy_rule1: int=10, copy_rule2: int=12,  how_many_Ns: 
         motif_set.add(tuple(shuffle_motifs(motifs)))
 
     cassette_strs = []
-    for x in motif_set:
+    for i, x in enumerate(motif_set):
         # link with N's
-        cassette_str = ""
-        for motif in x:
+        cassette_str = SeqRecord(Seq("", IUPACUnambiguousDNA()), id=f"id_cassette_{i+1}", name=f"name_cassette_{i+1}", description=f"metmap generated cassette")
+        current_pos = 0
+        for (motif, de_motif) in x:
             cassette_str += deambigulate_random("N"*how_many_Ns)
-            cassette_str += motif
+            current_pos += how_many_Ns
+            cassette_str += de_motif
+            cassette_str.features.append(SeqFeature(FeatureLocation(current_pos, current_pos+len(de_motif)), type='misc_binding', qualifiers={'note': motif}))
+            current_pos += len(de_motif)
         cassette_strs.append(cassette_str)
+    #for x in motif_set:
+    #    # link with N's
+    #    cassette_str = ""
+    #    for (motif, de_motif) in x:
+    #        cassette_str += deambigulate_random("N"*how_many_Ns)
+    #        cassette_str += de_motif
+    #    cassette_strs.append(cassette_str)
     return cassette_strs
