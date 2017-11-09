@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import argparse
+import argparse, sys
 from metmap.metmap import do_it_all
 from Bio.SeqIO import write
 
@@ -9,6 +9,9 @@ parser.add_argument("-k", type=int, default=10, help="Copies of rule 1 motifs")
 parser.add_argument("-l", type=int, default=12, help="Copies of rule 2 motifs")
 parser.add_argument("-m", type=int, default=1, help="number of N's between each motif")
 parser.add_argument("-p", type=int, default=1, help="number of cassettes to generate")
+if len(sys.argv) == 1:
+    parser.print_help()
+    sys.exit(1)
 args = parser.parse_args()
 
 
