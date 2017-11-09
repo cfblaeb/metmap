@@ -3,7 +3,7 @@ import argparse
 from metmap.metmap import do_it_all
 from Bio.SeqIO import write
 
-parser = argparse.ArgumentParser()
+parser = argparse.ArgumentParser(description="Generate DNA MTase binding cassettes. Output on screen and written to genbank and fasta.")
 parser.add_argument("motif_file", type=argparse.FileType(), help="Plain text file with 1 motif per line")
 parser.add_argument("-k", type=int, default=10, help="Copies of rule 1 motifs")
 parser.add_argument("-l", type=int, default=12, help="Copies of rule 2 motifs")
@@ -19,10 +19,6 @@ print("")
 print("")
 cassettes = do_it_all(args.motif_file, args.k, args.l, args.m, args.p)
 print("")
-print("")
-print("/------------------------------------\\")
-print("|-----------METMAP RESULTS-----------|")
-print("\------------------------------------/")
 print("")
 for i, cas in enumerate(cassettes):
     print(f"Cassette {i+1}")

@@ -167,7 +167,7 @@ def do_it_all(motif_file, copy_rule1: int=10, copy_rule2: int=12,  how_many_Ns: 
     cassette_strs = []
     for i, x in enumerate(motif_set):
         # link with N's
-        cassette_str = SeqRecord(Seq("", IUPACUnambiguousDNA()), id=f"id_cassette_{i+1}", name=f"name_cassette_{i+1}", description=f"metmap generated cassette")
+        cassette_str = SeqRecord(Seq("", IUPACUnambiguousDNA()), id=f"id_cassette_{i+1}", name=f"name_cassette_{i+1}", description=f"metmap generated cassette", annotations={'date': "08-MAR-1983"})
         current_pos = 0
         for (motif, de_motif) in x:
             cassette_str += deambigulate_random("N"*how_many_Ns)
@@ -176,11 +176,4 @@ def do_it_all(motif_file, copy_rule1: int=10, copy_rule2: int=12,  how_many_Ns: 
             cassette_str.features.append(SeqFeature(FeatureLocation(current_pos, current_pos+len(de_motif)), type='misc_binding', qualifiers={'note': motif}))
             current_pos += len(de_motif)
         cassette_strs.append(cassette_str)
-    #for x in motif_set:
-    #    # link with N's
-    #    cassette_str = ""
-    #    for (motif, de_motif) in x:
-    #        cassette_str += deambigulate_random("N"*how_many_Ns)
-    #        cassette_str += de_motif
-    #    cassette_strs.append(cassette_str)
     return cassette_strs
