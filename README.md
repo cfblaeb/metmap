@@ -39,8 +39,8 @@ DNA methyltransferase binding motif plasmid assembler
 * The motifs should be stored in a standard text file
 * One motif per line, then a comma then a 1 or a 2 to indicate whether either rule 1 or 2 should be used for this motif
   Example:  
-  ATGCATGCATGC, 1
-  STGCAGTCATCGTTK, 1    
+  ATGCATGCATGC, 1  
+  STGCAGTCATCGTTK, 1  
   ATCNNNNAAA, 2  
   CGTAGCANNNATCGATGC, 2  
   
