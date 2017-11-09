@@ -8,8 +8,8 @@ DNA methyltransferase binding motif plasmid assembler
 * This script requires python 3.6 or newer.
 * Install using "pip install metmap"
 * This will put a script named "run_metmap.py" in your pythons bin folder.
-  * Linux: You should just be able to type "run_metmap.py"
-  * Windows: The script will be placed in your python folders "Scripts" subfolder and you can run it with "python path\to\python\Scripts\run_metmap.py"
+  * Linux: You should just be able to type "run_metmap.py" from terminal
+  * Windows: The script will be placed in your python folders "Scripts" subfolder and you can run it with "python path\to\python\Scripts\run_metmap.py" from command line
   * Mac: Who knows..probably works like linux?
 
 
