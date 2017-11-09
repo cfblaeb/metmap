@@ -6,7 +6,7 @@ setup(
     author="Lasse Ebdrup Pedersen",
     author_email="laeb@biosustain.dtu.dk",
     description="A tool for generating DNA MTase motif testing sequences",
-    scripts=['bin/metmap', ],
+    scripts=['bin/run_metmap.py', ],
     url="https://github.com/biosustain/metmap",
     packages=['metmap'],
     install_requires=['biopython'],
