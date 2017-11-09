@@ -27,7 +27,6 @@ DNA methyltransferase binding motif plasmid assembler
       * Pick L random variants of the motif. E.g. Motif ATGNNTTA have a total of 16 possible actual sequences. If L<16 then the program will random pick L variants (without duplicates). If L>16 then each possible variant will be picked at least L/16 times and some will be picked 1 more than that.
 * We put M N's between each motif
 * And the program will output P versions of these cassettes
-* It will try to make the final product fulfill requirements for IDT gBlock synthesis, but since I don't have a clear list of what those are, that may fail.
 * You then clone this cassette into a plasmid with 1 DNA MTase in each plasmid.
 * You then transform this library into an organism that doesnt natively methylate DNA.
 * Grow, Harvest, Sequence plasmids.
@@ -44,12 +43,6 @@ DNA methyltransferase binding motif plasmid assembler
   ATCNNNNAAA, 2  
   CGTAGCANNNATCGATGC, 2  
   
-## Possibly gBlock synthesis issues:
-* extremely low or high GC content (less than 25% and greater than 75%)
-* homopolymeric runs of 10 or more As and Ts or 6 or more Gs and Cs
-* Other structural motifs such as repeats or hairpins
-* 125-3000 bp
-
 
 ### IUPAC nucleotide code:
 |code | nucs|
