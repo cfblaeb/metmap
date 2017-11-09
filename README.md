@@ -5,6 +5,7 @@ DNA methyltransferase binding motif plasmid assembler
 * To identify the motifs of multiple DNA methyltransferases (DNA MTase) simultaneously.
 
 ### Quick start
+* This script requires python 3.6 or newer.
 * Install using "pip install metmap"
 * This will put a script named "run_metmap.py" in your pythons bin folder.
   * Linux: You should just be able to type "run_metmap.py"
