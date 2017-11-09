@@ -4,6 +4,14 @@ DNA methyltransferase binding motif plasmid assembler
 ## Overall purpose:
 * To identify the motifs of multiple DNA methyltransferases (DNA MTase) simultaneously.
 
+### Quick start
+* Install using "pip install metmap"
+* This will put a script named "run_metmap.py" in your pythons bin folder.
+  * Linux: You should just be able to type "run_metmap.py"
+  * Windows: The script will be placed in your python folders "Scripts" subfolder and you can run it with "python path\to\python\Scripts\run_metmap.py"
+  * Mac: Who knows..probably works like linux?
+
+
 ## Overview:
 * You have an organism with multiple identified DNA MTases and you wish to know their individual motifs.
 * You use NGS to obtain motifs of all methylated DNA sites.
