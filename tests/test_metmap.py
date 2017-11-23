@@ -6,6 +6,6 @@ class TestMetMap(unittest.TestCase):
     def test_gpfc(self):
         infile = open("test_data.txt")
         motifs = generate_parts_for_cassette(infile)
-        self.assertEqual(len(motifs), 94)
+        self.assertEqual(104, len(motifs))
         infile.close()
 

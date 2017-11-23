@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import argparse, sys
+import argparse, sys, os
 from metmap.metmap import do_it_all
 from Bio.SeqIO import write
 
@@ -28,8 +28,10 @@ print("")
 print("Results will be written to genbank and fasta.")
 for i, cas in enumerate(cassettes):
     print(f"Cassette {i+1}")
-    print(cas.seq)
+    #print(cas.seq)
+    print(cas)
     print("")
+    print(f"genbank and fasta written to {os.getcwd()}")
     write(cas, open(f"cas{i+1}.gb", 'w'), 'genbank')
     write(cas, open(f"cas{i+1}.fa", 'w'), 'fasta')
 

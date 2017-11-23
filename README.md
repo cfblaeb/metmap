@@ -23,9 +23,9 @@ DNA methyltransferase binding motif plasmid assembler
   * We can't synthesize lots of ambiguous bases, so we "de-ambigulate" them before putting them into the final construct.
   * De-ambigulation happens according to 1 of 2 rules:
     * Rule 1:
-      * Make K copies of each completely "de-ambigulated" variant: E.g. the sequence "SATC" will then be treated as 2 sequences: "GATC" and "CTAC" that will each appear in K copies.
-    * Rule 2:
       * Pick L random variants of the motif. E.g. Motif ATGNNTTA have a total of 16 possible actual sequences. If L<16 then the program will random pick L variants (without duplicates). If L>16 then each possible variant will be picked at least L/16 times and some will be picked 1 more than that.
+    * Rule 2:
+      * Make K copies of each completely "de-ambigulated" variant: E.g. the sequence "SATC" will then be treated as 2 sequences: "GATC" and "CTAC" that will each appear in K copies.
 * We put M N's between each motif
 * And the program will output P versions of these cassettes
 * You then clone this cassette into a plasmid with 1 DNA MTase in each plasmid.

@@ -81,20 +81,22 @@ def generate_parts_for_cassette(motif_file, copy_rule1: int=10, copy_rule2: int=
     for i, (motif, rule) in enumerate(raw_motifs):
         how_many = calculate_number_of_possible_variants(motif)
         if rule == '1':
-            print(f"{motif}: rule {rule}: {how_many} variants which will each be added in {copy_rule1} copies. {copy_rule1*how_many} total.")
-            if how_many > 10:
-                print(f"Warning: This motif will be deambigulated into {how_many} variants. Each variant will receive {copy_rule1} copies. Thats {copy_rule1*how_many} targets for just 1 methyltransferase!")
-            motifs += [(motif, x) for x in deambigulate_all(motif)]*copy_rule1
-        elif rule == '2':
-            print(f"{motif}: rule {rule}: {how_many} variants of which {copy_rule2} copies will be picked at random.")
-            if how_many <= copy_rule2:  # make all variants, possibly more than once
-                copies = copy_rule2/how_many
+            print(f"{motif}: rule {rule}: {how_many} variants of which {copy_rule1} copies will be picked at random.")
+            if how_many <= copy_rule1:  # make all variants, possibly more than once
+                copies = copy_rule1 / how_many
                 all_variants = [(motif, x) for x in deambigulate_all(motif)]
-                adding = all_variants*int(copies)
+                adding = all_variants * int(copies)
                 motifs += adding
-                motifs += [(motif, x) for x in pick_n_random_without_duplicates(motif, copy_rule2-len(adding))]
+                motifs += [(motif, x) for x in pick_n_random_without_duplicates(motif, copy_rule1 - len(adding))]
             else:
-                motifs += [(motif, x) for x in pick_n_random_without_duplicates(motif, copy_rule2)]
+                motifs += [(motif, x) for x in pick_n_random_without_duplicates(motif, copy_rule1)]
+        elif rule == '2':
+            print(
+                f"{motif}: rule {rule}: {how_many} variants which will each be added in {copy_rule2} copies. {copy_rule2*how_many} total.")
+            if how_many > 10:
+                print(
+                    f"Warning: This motif will be deambigulated into {how_many} variants. Each variant will receive {copy_rule2} copies. Thats {copy_rule2*how_many} targets for just 1 methyltransferase!")
+            motifs += [(motif, x) for x in deambigulate_all(motif)] * copy_rule2
         else:
             print(f"Rule not recognized for motif '{motif}' on line {i}: '{rule}'. Rule must be either 1 or 2.")
 
@@ -150,8 +152,9 @@ def shuffle_motifs(motif_list):
 def do_it_all(motif_file, copy_rule1: int=10, copy_rule2: int=12,  how_many_Ns: int=1, nresults: int=1) -> list:
     """
     :param motif_file: a file in a format that i need to come up with
-    :param copy_rule1: Copies of each de-ambigulated sequence generated from motifs with less than 2 N's.
-    :param copy_ambig: Copies in total of motifs with 2 or more N's.
+    :param copy_rule1: pick this many random variants
+    :param copy_rule2: make each possible variant in this many copies
+    :param how_many_Ns: How many N's between motifs?
     :param nresults: number of motif assemblies to output
     return: actual results
     """

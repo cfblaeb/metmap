@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="metmap",
-    version="1.0.2",
+    version="1.0.3",
     author="Lasse Ebdrup Pedersen",
     author_email="laeb@biosustain.dtu.dk",
     description="A tool for generating DNA MTase motif testing sequences",
