@@ -12,6 +12,10 @@ DNA methyltransferase binding motif plasmid assembler
   * Windows: The script will be placed in your python folders "Scripts" subfolder and you can run it with "python path\to\python\Scripts\run_metmap.py" from command line
   * Mac: Who knows..probably works like linux?
 
+### Test
+You can download the tests/test_data.txt and run  
+```run_metmap.py test_data.txt```  
+This should generate a cas1.fa and cas1.gb file.
 
 ## Overview:
 * You have an organism with multiple identified DNA MTases and you wish to know their individual motifs.
@@ -32,7 +36,7 @@ DNA methyltransferase binding motif plasmid assembler
 * You then transform this library into an organism that doesnt natively methylate DNA.
 * Grow, Harvest, Sequence plasmids.
 * ?
-* Profit?  
+* Profit!  
 
 
 ## Motif file format
